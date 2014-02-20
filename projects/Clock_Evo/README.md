@@ -1,5 +1,5 @@
 (in progress) This project is based on the common strawman argument
-concerning the theory of evolution which upholds the view that the theory
+concerning the evolution which upholds the view that the theory
 is akin to taking apart a clock (a complex and intricate object), throwing
 it in a box, and shaking the box for millions of years expecting a perfectly
 formed clock to emerge at the end. This is clearly a false analogy when one
