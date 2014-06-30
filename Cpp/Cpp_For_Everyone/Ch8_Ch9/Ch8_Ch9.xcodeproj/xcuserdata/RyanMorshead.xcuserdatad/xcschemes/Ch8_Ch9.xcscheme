@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9AC748C5195E24080006189C"
-               BuildableName = "Ch8"
-               BlueprintName = "Ch8"
-               ReferencedContainer = "container:Ch8.xcodeproj">
+               BlueprintIdentifier = "9A3DEF231961D53700E19FB0"
+               BuildableName = "Ch8_Ch9"
+               BlueprintName = "Ch8_Ch9"
+               ReferencedContainer = "container:Ch8_Ch9.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9AC748C5195E24080006189C"
-            BuildableName = "Ch8"
-            BlueprintName = "Ch8"
-            ReferencedContainer = "container:Ch8.xcodeproj">
+            BlueprintIdentifier = "9A3DEF231961D53700E19FB0"
+            BuildableName = "Ch8_Ch9"
+            BlueprintName = "Ch8_Ch9"
+            ReferencedContainer = "container:Ch8_Ch9.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,10 +51,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9AC748C5195E24080006189C"
-            BuildableName = "Ch8"
-            BlueprintName = "Ch8"
-            ReferencedContainer = "container:Ch8.xcodeproj">
+            BlueprintIdentifier = "9A3DEF231961D53700E19FB0"
+            BuildableName = "Ch8_Ch9"
+            BlueprintName = "Ch8_Ch9"
+            ReferencedContainer = "container:Ch8_Ch9.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -69,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9AC748C5195E24080006189C"
-            BuildableName = "Ch8"
-            BlueprintName = "Ch8"
-            ReferencedContainer = "container:Ch8.xcodeproj">
+            BlueprintIdentifier = "9A3DEF231961D53700E19FB0"
+            BuildableName = "Ch8_Ch9"
+            BlueprintName = "Ch8_Ch9"
+            ReferencedContainer = "container:Ch8_Ch9.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
