@@ -5,42 +5,41 @@
 #include "TTreeReader.h"
 #include "TTreeReaderArray.h"
 
-void MomentumHist()
+void MomentumHist() 
 {
-   // Variables used to store the data
-   TH1F *hPosX;  // X position of the particles
-
-   // open the file
-   TFile *f = TFile::Open("http://lcg-heppkg.web.cern.ch/lcg-heppkg/ROOT/eventdata.root");
+    //open file
+    TFile *f = TFile::Open("http://lcg-heppkg.web.cern.ch/lcg-heppkg/ROOT/eventdata.root");
    if (f == 0) {
-      // if we cannot open the file, print an error message and return immediatly
+      // print an error message if unable to open
       printf("Error: cannot open http://lcg-heppkg.web.cern.ch/lcg-heppkg/ROOT/eventdata.root!\n");
       return;
    }
 
-   // Create tyhe tree reader and its data containers
-   TTreeReader myReader("EventTree", f);
-   // The branch "fPosX" contains doubles; access them as particlesPosX.
-   TTreeReaderArray<Double_t> particlesPosX(myReader, "fParticles.fPosX");
-   // The branch "fMomentum" contains doubles, too; access those as particlesMomentum.
-   TTreeReaderArray<Double_t> particlesMomentum(myReader, "fParticles.fMomentum");
+    //new TTreeReader
+    TTreeReader myReader("EventTree", f);
+    //get momentum values and assign to an array
+    TTreeReaderArray<Double_t> particlesMomentum(myReader, "fParticles.fMomentum");
+    //get position values and assign to an array
+    TTreeReaderArray<Double_t> particlesPosX(myReader, "fParticles.fPosX");
+    //assign new histogram to variable TH1F
+    TH1F *hPosX;
+    hPosX = new TH1F("hPosX", "Position in X",20, -5, 5);
+    hPosX->Sumw2(); //allow error bars
+    
+    while (myReader.Next())
+    {
+        for(Int_t i=0; i<particlesPosX.GetSize(); ++i)
+        {
+            Double_t pPosX_i = particlesPosX[i];
+            Double_t pMomX_i = particlesMomentum[i];
 
-   // create the TH1F histogram
-   hPosX = new TH1F("hPosX", "Position in X", 20, -5, 5);
-   // enable bin errors:
-   hPosX->Sumw2();
-
-   // Loop over all entries of the TTree or TChain.
-   while (myReader.Next()) {
-      // Do the analysis...
-      for (int iParticle = 0; iParticle < particlesPosX.GetSize(); ++iParticle) {
-         if (particlesMomentum[iParticle] > 40.0)
-            hPosX->Fill(particlesPosX[iParticle]);
-      }
-   }
-
-   // Fit the histogram:
-   hPosX->Fit("gaus");
-   // and draw it:
-   hPosX->Draw();
+            if (pMomX_i>40)
+            {
+                hPosX->Fill(pPosX_i);
+            }
+            
+        }
+    }
+    hPosX->Fit("gaus");
+    hPosX->Draw();
 }
