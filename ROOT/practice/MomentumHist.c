@@ -1,36 +1,46 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TBranch.h"
+#include "TH1F.h"
 #include "TTreeReader.h"
-#include "TTreeReaderValue.h"
+#include "TTreeReaderArray.h"
 
-void AnalyzeTree() 
+void MomentumHist()
 {
-        Int_t totalSize = 0;
-        TFile *f = TFile::Open("http://lcg-heppkg.web.cern.ch/lcg-heppkg/ROOT/eventdata.root");
-        if (f == 0)
-        {
-            printf("Error: cannot open http://lcg-heppkg.web.cern.ch/lcg-heppkg/ROOT/eventdata.root!\n");
-            return;
-        }
+   // Variables used to store the data
+   TH1F *hPosX;  // X position of the particles
 
-        TTreeReader myReader("EventTree", f);
-        TTreeReaderValue<Int_t> eventSize(myReader, "fEventSize");
+   // open the file
+   TFile *f = TFile::Open("http://lcg-heppkg.web.cern.ch/lcg-heppkg/ROOT/eventdata.root");
+   if (f == 0) {
+      // if we cannot open the file, print an error message and return immediatly
+      printf("Error: cannot open http://lcg-heppkg.web.cern.ch/lcg-heppkg/ROOT/eventdata.root!\n");
+      return;
+   }
 
-        while (myReader.Next())
-        {
-        	totalSize+= *eventSize;
-        }
+   // Create tyhe tree reader and its data containers
+   TTreeReader myReader("EventTree", f);
+   // The branch "fPosX" contains doubles; access them as particlesPosX.
+   TTreeReaderArray<Double_t> particlesPosX(myReader, "fParticles.fPosX");
+   // The branch "fMomentum" contains doubles, too; access those as particlesMomentum.
+   TTreeReaderArray<Double_t> particlesMomentum(myReader, "fParticles.fMomentum");
 
-        int sizeInMB = totalSize/1024/1024;
-        printf("Total size of all events: %d MB\n", sizeInMB);
+   // create the TH1F histogram
+   hPosX = new TH1F("hPosX", "Position in X", 20, -5, 5);
+   // enable bin errors:
+   hPosX->Sumw2();
 
-        new TH1F("hPosX", "position in X",20, -5, 5);
-        TTreReaderArray<Doubt_t> particlesMomentum(myReader, "fMomentum")
-        Int_t range = particlesMomentum.getSize()
+   // Loop over all entries of the TTree or TChain.
+   while (myReader.Next()) {
+      // Do the analysis...
+      for (int iParticle = 0; iParticle < particlesPosX.GetSize(); ++iParticle) {
+         if (particlesMomentum[iParticle] > 40.0)
+            hPosX->Fill(particlesPosX[iParticle]);
+      }
+   }
 
-        for(Int_t i=0; i<=range; i++)
-        {
-        	
-        }
+   // Fit the histogram:
+   hPosX->Fit("gaus");
+   // and draw it:
+   hPosX->Draw();
 }
