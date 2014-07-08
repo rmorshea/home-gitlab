@@ -1,3 +1,10 @@
+"settings":
+    {
+    "sublimegdb_workingdir": "${folder:${project_path:AnalyzeTree.c}}",
+    "sublimegdb_commandline": "gdb --interpreter=mi ./AnalyzeTree.c"
+    ]
+}
+
 #include "TFile.h"
 #include "TTree.h"
 #include "TBranch.h"

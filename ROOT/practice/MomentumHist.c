@@ -28,7 +28,9 @@ void MomentumHist()
     
     while (myReader.Next())
     {
-        for(Int_t i=0; i<particlesPosX.GetSize(); ++i)
+        Int_t range = particlesPosX.GetSize();
+        
+        for(Int_t i=0; i<range; i++)
         {
             Double_t pPosX_i = particlesPosX[i];
             Double_t pMomX_i = particlesMomentum[i];
