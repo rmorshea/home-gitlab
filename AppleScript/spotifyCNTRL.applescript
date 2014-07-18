@@ -1,12 +1,60 @@
-# prioritize Spotify first
+-- prioritize Spotify first
+--check if spotify is open
 if application "Spotify" is running then
-	tell application "Spotify" to next track
+	--bring up dialog box, ask user to:
+	--play/pause current song, play the next song, or play the last song
+	set question to display dialog "Give a media player command:" buttons {"<<<", "play/pause", ">>>"} default button 3 with title "Media Player Command" giving up after 3
+	set answer to button returned of question
+	if answer is equal to "" then
+		set answer to ">>>"
+	end if
 
-# only play iTunes when nothing else is open
+	--depending on user input tell spotify:
+    --to playpaus, to next track, or to previous track
+	tell application "Spotify"
+		if answer is equal to "play/pause" then
+			playpause
+		else if answer is equal to ">>>" then
+			next track
+		else if answer is equal to "<<<" then
+			if player position < 3 then
+				previous track
+			else
+				previous track
+				previous track
+			end if
+		end if
+	end tell
+
+--only play iTunes when nothing else is open
+--then proceed in similar fasion to above spotify script
 else if application "iTunes" is running then
-    tell application "iTunes" to next track
+	--bring up dialog box, ask user to:
+	--play/pause current song, play the next song, or play the last song
+	set question to display dialog "Give a media player command:" buttons {"<<<", "play/pause", ">>>"} default button 3 with title "Media Player Command" giving up after 3
+	set answer to button returned of question
+	if answer is equal to "" then
+		set answer to ">>>"
+	end if
 
-# if no media app is open, start Spotify and play some tunes!
+	--depending on user input tell spotify:
+    --to playpaus, to next track, or to previous track
+	tell application "iTunes"
+		if answer is equal to "play/pause" then
+			playpause
+		else if answer is equal to ">>>" then
+			next track
+		else if answer is equal to "<<<" then
+			if player position < 3 then
+				previous track
+			else
+				previous track
+				previous track
+			end if
+		end if
+	end tell
+
+-- if no media app is open, start Spotify and play some tunes!
 else
 	tell application "Spotify"
 		activate
