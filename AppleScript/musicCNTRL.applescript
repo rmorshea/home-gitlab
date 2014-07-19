@@ -3,10 +3,26 @@
 if application "Spotify" is running then
 	--bring up dialog box, ask user to:
 	--play/pause current song, play the next song, or play the last song
-	set question to display dialog "Give a media player command:" buttons {"<<<", "play/pause", ">>>"} default button 3 with title "Media Player Command" giving up after 3
+	tell application "Spotify"
+		if player state is not playing then
+			playpause
+			set MessageNumber to 0
+			set defaultCommand to "none"
+		else
+			set MessageNumber to 1
+			set defaultCommand to ">>>"
+		end if
+	end tell
+
+	if MessageNumber is equal to 0 then
+		set question to display dialog "Give the current media player a command:" buttons {"<<<", ">>>"} with title "Media Player Script" giving up after 3
+	else if MessageNumber is equal to 1 then
+		set question to display dialog "Give the current media player a command:" buttons {"<<<", "play/pause", ">>>"} default button defaultCommand with title "Media Player Script" giving up after 3
+	end if
+
 	set answer to button returned of question
 	if answer is equal to "" then
-		set answer to ">>>"
+		set answer to defaultCommand
 	end if
 
 	--depending on user input tell spotify:
@@ -31,10 +47,26 @@ if application "Spotify" is running then
 else if application "iTunes" is running then
 	--bring up dialog box, ask user to:
 	--play/pause current song, play the next song, or play the last song
-	set question to display dialog "Give a media player command:" buttons {"<<<", "play/pause", ">>>"} default button 3 with title "Media Player Command" giving up after 3
+	tell application "iTunes"
+		if player state is not playing then
+			playpause
+			set MessageNumber to 0
+			set defaultCommand to "none"
+		else
+			set MessageNumber to 1
+			set defaultCommand to ">>>"
+		end if
+	end tell
+
+	if MessageNumber is equal to 0 then
+		set question to display dialog "Give the current media player a command:" buttons {"<<<", ">>>"} with title "Media Player Script" giving up after 3
+	else if MessageNumber is equal to 1 then
+		set question to display dialog "Give the current media player a command:" buttons {"<<<", "play/pause", ">>>"} default button defaultCommand with title "Media Player Script" giving up after 3
+	end if
+
 	set answer to button returned of question
 	if answer is equal to "" then
-		set answer to ">>>"
+		set answer to defaultCommand
 	end if
 
 	--depending on user input tell spotify:
@@ -58,7 +90,6 @@ else if application "iTunes" is running then
 else
 	tell application "Spotify"
 		activate
-
 		-- Make sure shuffle & repeat is on
 		if shuffling is false then
 			set shuffling to true
