@@ -2,3 +2,4 @@ Cpp/Cpp_For_Everyone
 .configureGit.sh
 AppleScript/musicCNTRL_demonstration.mov
 Python/assorted/
+*.ipynb_checkpoints
